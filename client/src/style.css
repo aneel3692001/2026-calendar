@@ -1,0 +1,240 @@
+:root {
+  --color-bg: #121413;
+  --color-surface: #1e211f;
+  --color-surface-glass: rgba(30, 33, 31, 0.6);
+  --color-text-main: #e8e6e1;
+  --color-text-muted: #a3a8a5;
+  --color-accent: #8da399; /* Dusty Olive */
+  --color-accent-glow: rgba(141, 163, 153, 0.3);
+  --color-border: rgba(255, 255, 255, 0.08);
+
+  --font-heading: "Outfit", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  /* Subtle background texture or gradient can go here */
+  background: radial-gradient(
+    circle at top left,
+    #1a201d 0%,
+    var(--color-bg) 40%
+  );
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  color: inherit;
+}
+
+/* Utilities */
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-center {
+  justify-content: center;
+}
+.gap-2 {
+  gap: 0.5rem;
+}
+.gap-4 {
+  gap: 1rem;
+}
+.gap-6 {
+  gap: 1.5rem;
+}
+.gap-8 {
+  gap: 2rem;
+}
+
+.grid {
+  display: grid;
+}
+.grid-cols-7 {
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.w-full {
+  width: 100%;
+}
+.h-full {
+  height: 100%;
+}
+.h-screen {
+  height: 100vh;
+}
+
+.text-center {
+  text-align: center;
+}
+.text-sm {
+  font-size: 0.875rem;
+}
+.text-xs {
+  font-size: 0.75rem;
+}
+.text-xl {
+  font-size: 1.25rem;
+}
+.text-2xl {
+  font-size: 1.5rem;
+}
+.font-bold {
+  font-weight: 700;
+}
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.p-4 {
+  padding: 1rem;
+}
+.p-6 {
+  padding: 1.5rem;
+}
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.rounded-lg {
+  border-radius: 0.75rem;
+}
+.rounded-xl {
+  border-radius: 1rem;
+}
+.rounded-full {
+  border-radius: 9999px;
+}
+
+/* Glassmorphism Components */
+.glass-panel {
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.glass-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s var(--ease-out);
+}
+.glass-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--color-accent);
+}
+
+/* Calendar Specifics */
+.calendar-grid-header {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  padding: 1rem 0;
+}
+
+.day-cell {
+  position: relative;
+  min-height: 100px; /* Desktop height */
+  border-top: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
+  transition: background 0.2s;
+  padding: 0.5rem;
+}
+.day-cell:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.day-number {
+  font-family: var(--font-heading);
+  color: var(--color-text-muted);
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-main);
+  margin-top: 2px;
+}
+.badge.holiday {
+  background: rgba(255, 100, 100, 0.15);
+  color: #ffcccc;
+}
+.badge.wildlife {
+  background: rgba(100, 255, 150, 0.1);
+  color: #ccffdd;
+}
+
+/* Featured Image Cells */
+.day-cell.featured::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.4;
+  z-index: 0;
+  filter: grayscale(40%);
+  transition: opacity 0.3s;
+}
+.day-cell.featured:hover::before {
+  opacity: 0.6;
+  filter: grayscale(0%);
+}
+.day-cell-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .grid-cols-7 {
+    /* On mobile, standard calendar might look small. */
+    /* Using full 7-col grid but smaller cells, or changing to list view? */
+    /* User: "Month grid must be readable on small screens (switch to stacked week rows if needed)." */
+  }
+  .day-cell {
+    min-height: 80px;
+  }
+}

@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server/db:/app/db
+      - ./server/uploads:/app/uploads
+    environment:
+      - PORT=3000
+
+  client:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./client:/app
+    command: npm run dev -- --host
+    ports:
+      - "5173:5173"
